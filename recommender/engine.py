@@ -1,11 +1,20 @@
 import chromadb
 from sentence_transformers import SentenceTransformer
+# --- ADD THIS PATCH AT THE VERY TOP ---
+import pysqlite3
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# --------------------------------------
+
+
 
 class RecommendationEngine:
     def __init__(self, db_path="data/chroma_db"):
         self.client = chromadb.PersistentClient(path=db_path)
         self.collection = self.client.get_collection(name="shl_assessments")
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
+        
+    # ... rest of your code ...
         
     def recommend(self, query: str, top_k: int = 10):
         # 1. Embed the user's text query

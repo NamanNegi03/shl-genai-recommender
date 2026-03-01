@@ -3,3 +3,4 @@ uvicorn
 chromadb
 sentence-transformers
 pydantic
+pysqlite3-binary
